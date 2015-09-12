@@ -1,0 +1,67 @@
+description = 'Kotlin Bootstrap -- Application'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.613'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
+apply plugin: 'kotlin'
+
+group = 'com.lantopia'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+test {
+    jacoco {
+        enabled = true
+    }
+}
+
+checkstyle {
+    toolVersion = "6.1.1"
+}
+
+task generateDebugJavadoc(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task generateReleaseJavadoc(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+dependencies {
+    compile project(':lib')
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:0.12.613'
+    compile 'org.jetbrains.kotlin:kotlin-reflect:0.12.613'
+
+    testCompile 'junit:junit:4.12'
+    testCompile "org.assertj:assertj-core:1.7.0"
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    testCompile 'com.github.tomakehurst:wiremock:1.55:standalone'
+}
+
+artifacts {
+    archives jar
+    archives generateDebugJavadoc
+    archives sourcesJar
+}
