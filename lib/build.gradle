@@ -1,4 +1,4 @@
-description = 'Kotlin Bootstrap'
+description = 'Kotlin Bootstrap -- Library'
 
 buildscript {
     repositories {
@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.12.613'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
     }
 }
 
@@ -34,14 +34,14 @@ checkstyle {
     toolVersion = "6.1.1"
 }
 
-task generateDebugJavadoc(type: Jar, dependsOn: javadoc) {
+task generateDebugKDoc(type: Jar, dependsOn: kdoc) {
     classifier = 'javadoc'
-    from 'build/docs/javadoc'
+    from 'build/docs/kdoc'
 }
 
-task generateReleaseJavadoc(type: Jar, dependsOn: javadoc) {
+task generateReleaseKDoc(type: Jar, dependsOn: kdoc) {
     classifier = 'javadoc'
-    from 'build/docs/javadoc'
+    from 'build/docs/kdoc'
 }
 
 task sourcesJar(type: Jar) {
@@ -50,8 +50,8 @@ task sourcesJar(type: Jar) {
 }
 
 dependencies {
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:0.12.613'
-    compile 'org.jetbrains.kotlin:kotlin-reflect:0.12.613'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
+    compile "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
 
     testCompile 'junit:junit:4.12'
     testCompile "org.assertj:assertj-core:1.7.0"
@@ -61,6 +61,6 @@ dependencies {
 
 artifacts {
     archives jar
-    archives generateDebugJavadoc
+    archives generateDebugKDoc
     archives sourcesJar
 }

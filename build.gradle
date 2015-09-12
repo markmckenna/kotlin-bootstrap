@@ -1,0 +1,7 @@
+allprojects {
+    group 'com.lantopia.bootstrap'
+
+    ext {
+        kotlinVersion = '0.12.613'
+    }
+}
